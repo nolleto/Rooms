@@ -1,0 +1,25 @@
+{
+  "name": "Rooms",
+  "version": "0.0.1",
+  "description": "Uma cópia do app Rooms do Facebook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brunoskonrad/Rooms.git"
+  },
+  "keywords": [
+    "rooms"
+  ],
+  "author": "Bruno Konrad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brunoskonrad/Rooms/issues"
+  },
+  "homepage": "https://github.com/brunoskonrad/Rooms",
+  "dependencies": {
+    "express": "^4.11.2"
+  }
+}
