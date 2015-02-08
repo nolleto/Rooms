@@ -1,10 +1,14 @@
 'use strict';
 
-var app = require('express')()
+var express = require('express')
+	, app = express()
 	, http = require('http').Server(app)
+	, path = require('path')
 	, io = require('socket.io')(http)
+
 	, passport = require('passport')
 	, FacebookStrategy = require('passport-facebook').Strategy
+
 	, user = require('./models/User')
 	// configuração, vai ficar aqui por enquanto... depois preocupo com organizar o código node (aprender isso, na real rssss)
 	, localHost = '192.168.25.24'
@@ -20,7 +24,7 @@ passport.use(new FacebookStrategy({
 		user.getUser(profile.id, function(docs) {
 			if (docs.length == 0) {
 				var name = profile.name.givenName + ' ' + profile.name.familyName;
-				user.saveUser(profile.id, name, function(result) {
+				user.insertUser(profile.id, name, function(result) {
 					console.log(result);
 				});
 			}
@@ -28,8 +32,10 @@ passport.use(new FacebookStrategy({
 	}
 ));
 
+app.use("/client", express.static(path.join(__dirname, 'client')));
+
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/view/index.html');
+	res.sendFile(__dirname + '/client/index.html');
 	user.getUser('100000470968012', function(docs) {
 		console.log(docs);
 	});

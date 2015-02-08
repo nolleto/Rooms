@@ -47,7 +47,14 @@ userModule = (function() {
           });
       });
     },
-    saveUser: function(facebookId, name, callback) {
+
+    /**
+     * Cria um novo documento na coleção de usuários.
+     * @param facebookId - ID do facebook;
+     * @param name - o nome do usuário, vindo do Facebook;
+     * @param callback - função com o parâmetro do resultado.
+     */
+    insertUser: function(facebookId, name, callback) {
       var that = this;
       onUserConnect(function(db, users) {
         users.insert({
@@ -57,10 +64,24 @@ userModule = (function() {
         }, function(err, result) {
           // copiando as validações do tutorial. Vai que, né. Ver se precisa
           assert.equal(null, err);
-          console.log(result);
-          console.log('salvei');
-
           callback.call(that, result);
+          db.close();
+        });
+      });
+    },
+
+    /**
+     * Pesquisa um usuário pelo ID do facebook, o resultado estará no
+     * objeto callback. Se não encontrar nada o parametro é null.
+     * @param facebookId - ID do facebook;
+     * @param callback - função com o parâmetro que é o objeto encontrado.
+     */
+    removeUser: function(facebookId, callback) {
+      var that = this;
+      onUserConnect(function(db, users) {
+        users.remove({'facebook_id': facebookId}, function(err, result) {
+          assert.equal(null, err);
+          callback.call(that, err);
           db.close();
         });
       })
