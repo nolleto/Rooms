@@ -48,5 +48,5 @@ io.on('connection', function(socket) {
 });
 
 http.listen(port, function() {
-	console.log('Começou o jogo, em localhost:3000');
+	console.log('Começou o jogo, em localhost:' + port);
 });

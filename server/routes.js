@@ -13,10 +13,10 @@ module.exports = {
   },
 
   success: function(req, res) {
-
+    res.send('Sucesso!');
   },
 
   fail: function(req, res) {
-
+    res.send('Falha.. Ops!');
   }
 };
