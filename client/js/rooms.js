@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('Rooms')
+angular.module('Rooms', []);

@@ -3,11 +3,15 @@
   <head>
   </head>
     <title>Rooms</title>
-  <body>
-    <h1>Hello World</h1>
 
     <script src="client/lib/angular/angular.min.js"></script>
     <script src="client/js/rooms.js"></script>
     <script src="client/js/service/AuthenticationService.js"></script>
+    <script src="client/js/controller/RoomsController.js"></script>
+  <body>
+    <div ng-controller="RoomsController">
+      <h1>{{name}}</h1>
+      {{login()}}
+    </div>
   </body>
 </html>

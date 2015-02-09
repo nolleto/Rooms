@@ -32,6 +32,7 @@ passport.use(new FacebookStrategy({
 	}
 ));
 
+// Torna público o acesso aos JS e isso aqui fez funcionar o client.
 app.use("/client", express.static(path.join(__dirname, 'client')));
 
 app.get('/', function(req, res) {
@@ -41,9 +42,19 @@ app.get('/', function(req, res) {
 	});
 });
 
+app.get('/success', function(req, res) {
+	res.send('oi');
+});
+
+app.get('/fail', function(req, res) {
+	res.send('ops');
+});
+
 // Autenticação por facebook
 app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/' }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook',
+	{ successRedirect: '/success', failureRedirect: '/fail' })
+);
 
 
 io.on('connection', function(socket) {
@@ -57,4 +68,4 @@ io.on('connection', function(socket) {
 
 http.listen(port, function() {
 	console.log('Começou o jogo, em localhost:3000');
-})
+});
