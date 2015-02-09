@@ -4,14 +4,15 @@
   </head>
     <title>Rooms</title>
 
-    <script src="client/lib/angular/angular.min.js"></script>
-    <script src="client/js/rooms.js"></script>
-    <script src="client/js/service/AuthenticationService.js"></script>
-    <script src="client/js/controller/RoomsController.js"></script>
+    <link rel="stylesheet" href="public/dest/css/main.css" />
+
+    <script src="public/dest/lib/angular/angular.min.js"></script>
+    <script src="public/js/rooms.js"></script>
+    <script src="public/js/service/AuthenticationService.js"></script>
+    <script src="public/js/controller/RoomsController.js"></script>
   <body>
-    <div ng-controller="RoomsController">
-      <h1>{{name}}</h1>
-      {{login()}}
+    <div ng-controller="RoomsController as r">
+      <h1>{{r.name}}</h1>
     </div>
   </body>
 </html>

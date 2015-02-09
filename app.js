@@ -9,7 +9,8 @@ var express = require('express')
 	, passport = require('passport')
 	, FacebookStrategy = require('passport-facebook').Strategy
 
-	, user = require('./models/User')
+	, routes = require('./server/routes')
+	, authentication = require('./server/authentication')
 	// configuração, vai ficar aqui por enquanto... depois preocupo com organizar o código node (aprender isso, na real rssss)
 	, localHost = '192.168.25.24'
 	, port = '3000'
@@ -19,36 +20,16 @@ passport.use(new FacebookStrategy({
 		clientID: '548556098591198',
 		clientSecret: '3cb52a37bcd5cd3eb800a807447325d9',
 		callbackURL: 'http://' + localHost + ':' + port + '/auth/facebook/callback'
-	}, function(accessToken, refreshToken, profile, done) {
-		// Aqui tem que rolar a autenticação e taus
-		user.getUser(profile.id, function(docs) {
-			if (docs.length == 0) {
-				var name = profile.name.givenName + ' ' + profile.name.familyName;
-				user.insertUser(profile.id, name, function(result) {
-					console.log(result);
-				});
-			}
-		});
-	}
-));
+	}, authentication.facebook));
 
 // Torna público o acesso aos JS e isso aqui fez funcionar o client.
-app.use("/client", express.static(path.join(__dirname, 'client')));
+app.use("/public", express.static(path.join(__dirname, 'client')));
 
-app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/client/index.html');
-	user.getUser('100000470968012', function(docs) {
-		console.log(docs);
-	});
-});
+app.get('/', routes.root);
 
-app.get('/success', function(req, res) {
-	res.send('oi');
-});
+app.get('/success', routes.success);
 
-app.get('/fail', function(req, res) {
-	res.send('ops');
-});
+app.get('/fail', routes.fail);
 
 // Autenticação por facebook
 app.get('/auth/facebook', passport.authenticate('facebook'));
