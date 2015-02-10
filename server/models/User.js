@@ -15,11 +15,12 @@ userModule = (function() {
    */
   function onConnect(callback) {
     MongoClient.connect(url, function(err, db) {
-      assert.equal(null, err);
-      console.log('conexão aberta');
+      if (err == null) {
+        console.log('conexão aberta');
 
-      // Chama o callback do sujeito
-      callback.call(this, db);
+        // Chama o callback do sujeito
+        callback.call(this, db);
+      }
     });
   }
 
@@ -84,7 +85,7 @@ userModule = (function() {
           callback.call(that, err);
           db.close();
         });
-      })
+      });
     }
   };
 })();
