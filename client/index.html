@@ -16,5 +16,15 @@
 
       <button class="facebook">Facebook</button>
     </div>
+
+    <script src="../socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      socket.emit('message sent', {
+        room: 'codigo_da_sala',
+        message: 'Hello World!',
+        facebookId: 123142123
+      })
+    </script>
   </body>
 </html>
