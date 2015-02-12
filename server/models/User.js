@@ -39,6 +39,8 @@ userModule = (function() {
      */
     getUser: function(facebookId, callback) {
       var that = this;
+      callback = callback || function() {};
+      
       onUserConnect(function(db, users) {
         users.find({'facebook_id': facebookId})
           .toArray(function(err, docs) {
@@ -55,14 +57,19 @@ userModule = (function() {
      * @param name - o nome do usuário, vindo do Facebook;
      * @param callback - função com o parâmetro do resultado.
      */
-    insertUser: function(facebookId, name, callback) {
+    insertUser: function(facebookId, name, facebookAccessToken, callback) {
       var that = this;
+      callback = callback || function() {};
+
       onUserConnect(function(db, users) {
-        users.insert({
+        var data = {
           facebook_id: facebookId,
           name: name,
           rooms: []
-        }, function(err, result) {
+        };
+        if (facebookAccessToken != null)
+          data['facebook_access_token'] = facebookAccessToken;
+        users.insert(data, function(err, result) {
           // copiando as validações do tutorial. Vai que, né. Ver se precisa
           assert.equal(null, err);
           callback.call(that, result);
@@ -79,6 +86,8 @@ userModule = (function() {
      */
     removeUser: function(facebookId, callback) {
       var that = this;
+      callback = callback || function() {};
+
       onUserConnect(function(db, users) {
         users.remove({'facebook_id': facebookId}, function(err, result) {
           assert.equal(null, err);

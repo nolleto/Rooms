@@ -5,6 +5,8 @@ var express = require('express')
 	, http = require('http').Server(app)
 	, path = require('path')
 
+	, Grant = require('grant').express()
+
 	, passport = require('passport')
 	, FacebookStrategy = require('passport-facebook').Strategy
 
@@ -16,24 +18,15 @@ var express = require('express')
 	, port = '3000'
 	;
 
-passport.use(new FacebookStrategy({
-		clientID: '548556098591198',
-		clientSecret: '3cb52a37bcd5cd3eb800a807447325d9',
-		callbackURL: 'http://' + localHost + ':' + port + '/auth/facebook/callback'
-	}, authentication.facebook));
+var grant = new Grant(require('./server/grant_config.json'));
+app.use(grant);
+
+app.get('/handle_facebook_callback', authentication.facebook);
 
 // Torna público o acesso aos JS e isso aqui fez funcionar o client.
 app.use("/public", express.static(path.join(__dirname, 'client')));
 
 app.get('/', routes.root);
-app.get('/success', routes.success);
-app.get('/fail', routes.fail);
-
-// Autenticação por facebook
-app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback', passport.authenticate('facebook',
-	{ successRedirect: '/success', failureRedirect: '/fail' })
-);
 
 chat.start(http);
 

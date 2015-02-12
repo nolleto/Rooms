@@ -14,7 +14,7 @@
     <div ng-controller="RoomsController as r">
       <h1>Rooms</h1>
 
-      <button class="facebook">Facebook</button>
+      <button class="facebook" ng-click="r.login()">Facebook</button>
     </div>
 
     <script src="../socket.io/socket.io.js"></script>
@@ -24,7 +24,7 @@
         room: 'codigo_da_sala',
         message: 'Hello World!',
         facebookId: 123142123
-      })
+      });
     </script>
   </body>
 </html>

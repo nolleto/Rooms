@@ -3,7 +3,7 @@
 angular.module('Rooms')
   .service('Authentication', ['$http', function($http) {
     this.facebookLogin = function(callback) {
-      $http.get('/auth/facebook').success(function() {
+      $http.get('/connect/facebook').success(function() {
         callback();
       });
     };

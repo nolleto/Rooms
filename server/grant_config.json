@@ -1,0 +1,16 @@
+{
+  "server": {
+    "protocol": "http",
+    "host": "192.168.25.24:3000"
+  },
+  "facebook": {
+    "key": "548556098591198",
+    "secret": "3cb52a37bcd5cd3eb800a807447325d9",
+    "callback": "/handle_facebook_callback",
+    "scope": [
+      "user_groups",
+      "user_likes",
+      "user_about_me"
+    ]
+  }
+}

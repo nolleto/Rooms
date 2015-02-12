@@ -21,9 +21,9 @@
   "homepage": "https://github.com/brunoskonrad/Rooms",
   "dependencies": {
     "express": "^4.11.2",
+    "grant": "^2.0.0",
     "mongodb": "^1.4.30",
-    "passport": "^0.2.1",
-    "passport-facebook": "^1.0.3",
+    "request": "^2.53.0",
     "socket.io": "^1.3.3"
   },
   "devDependencies": {
