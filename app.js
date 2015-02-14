@@ -10,7 +10,7 @@ var express = require('express')
   , routes = require('./server/routes')
   , authentication = require('./server/authentication')
   , chat = require('./server/chat')
-  
+
   , localHost = '192.168.25.24'
   , port = '3000'
   ;

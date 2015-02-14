@@ -16,7 +16,7 @@
      * @param facebookId - ID do facebook;
      * @param callback - função com o parâmetro que é o objeto encontrado.
      */
-    getUser: function(facebookId, callback) {
+    get: function(facebookId, callback) {
       var that = this;
       callback = callback || function() {};
 
@@ -39,7 +39,7 @@
      * @param name - o nome do usuário, vindo do Facebook;
      * @param callback - função com o parâmetro do resultado.
      */
-    insertUser: function(facebookId, name, facebookAccessToken, callback) {
+    insert: function(facebookId, name, facebookAccessToken, callback) {
       var that = this;
       callback = callback || function() {};
 
@@ -68,7 +68,7 @@
      * @param facebookId - ID do facebook;
      * @param callback - função com o parâmetro que é o objeto encontrado.
      */
-    removeUser: function(facebookId, callback) {
+    remove: function(facebookId, callback) {
       var that = this;
       callback = callback || function() {};
 
