@@ -10,6 +10,7 @@
   }
 
   module.exports = {
+
     /**
      * Pesquisa um usuário pelo ID do facebook, o resultado estará no
      * objeto callback. Se não encontrar nada o parametro é null.
@@ -82,6 +83,65 @@
           db.close();
         });
       });
+    },
+
+    /**
+     * @param options: {facebookId: '', room: '', nickname: ''}
+     */
+    addRoom: function(options, callback) {
+      if (options.facebookId && options.room && options.nickname) {
+
+          onUserConnect(function(db, users) {
+            users.update({'facebook_id': options.facebookId},
+            {
+              $push: {
+                rooms: {
+                  room_name: options.room,
+                  nickname: options.nickname
+                }
+              }
+            }, function(err, result) {
+              if (err != null) {
+                console.log('Erro a adicionar uma Room: ' + options);
+              }
+              callback(result);
+            });
+          });
+
+      } else {
+        callback(0);
+      }
+    },
+
+    /**
+     * @param facebookId:
+     */
+    leaveRoom: function(facebookId, roomName, callback) {
+      if (facebookId && roomName) {
+
+        onUserConnect(function(db, users) {
+          users.update({'facebook_id': facebookId},
+          {
+            $pull: {
+              rooms: {
+                room_name: roomName
+              }
+            }
+          }, function(err, result) {
+            if (err != null) {
+
+            }
+            callback(result);
+          });
+        });
+
+      } else {
+        callback(0);
+      }
+    },
+
+    database: function(db) {
+      base.database(db);
     }
   };
 
