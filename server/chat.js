@@ -1,9 +1,9 @@
-'use strict';
+(function() {
 
-var socketIo = require('socket.io')
-  , io;
+  'use strict';
 
-var chat = (function() {
+  var socketIo = require('socket.io')
+    , io;
 
   function connection(socket) {
     console.log('Conectou!');
@@ -17,14 +17,11 @@ var chat = (function() {
     });
   }
 
-  var c = {
+  module.exports = {
     start: function(http) {
       io = socketIo(http);
       io.on('connection', connection);
     }
   };
 
-  return c;
 })();
-
-module.exports = chat;

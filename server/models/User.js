@@ -1,36 +1,15 @@
-'use strict';
+(function() {
+  'use strict';
 
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert')
-  , url = 'mongodb://localhost:27017/rooms'
-  , userModule
-  ;
-
-userModule = (function() {
-  /**
-   * Método base para conexão ao Mongo. A questão é ter a base de
-   * conexão e passar uma function callback, que recebe o objeto
-   * db para ser usado.
-   * @param callback: function com parametro "db" para ser usado.
-   */
-  function onConnect(callback) {
-    MongoClient.connect(url, function(err, db) {
-      if (err == null) {
-        console.log('conexão aberta');
-
-        // Chama o callback do sujeito
-        callback.call(this, db);
-      }
-    });
-  }
+  var base = require('./BaseModels');
 
   function onUserConnect(callback) {
-    onConnect(function(db) {
+    base.connect(function(db) {
       callback.call(this, db, db.collection('users'));
     });
   }
 
-  return {
+  module.exports = {
     /**
      * Pesquisa um usuário pelo ID do facebook, o resultado estará no
      * objeto callback. Se não encontrar nada o parametro é null.
@@ -40,11 +19,14 @@ userModule = (function() {
     getUser: function(facebookId, callback) {
       var that = this;
       callback = callback || function() {};
-      
+
       onUserConnect(function(db, users) {
         users.find({'facebook_id': facebookId})
           .toArray(function(err, docs) {
-            assert.equal(null, err);
+            if (err != null) {
+              // TODO: precisa tratar, sepá
+            }
+
             callback.call(that, docs);
             db.close();
           });
@@ -70,8 +52,10 @@ userModule = (function() {
         if (facebookAccessToken != null)
           data['facebook_access_token'] = facebookAccessToken;
         users.insert(data, function(err, result) {
-          // copiando as validações do tutorial. Vai que, né. Ver se precisa
-          assert.equal(null, err);
+          if (err != null) {
+            // TODO: precisa tratar, sepá
+          }
+
           callback.call(that, result);
           db.close();
         });
@@ -90,13 +74,15 @@ userModule = (function() {
 
       onUserConnect(function(db, users) {
         users.remove({'facebook_id': facebookId}, function(err, result) {
-          assert.equal(null, err);
+          if (err != null) {
+            // TODO: precisa tratar, sepá
+          }
+
           callback.call(that, err);
           db.close();
         });
       });
     }
   };
-})();
 
-module.exports = userModule;
+})();
