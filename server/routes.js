@@ -6,6 +6,6 @@ var user = require('./models/User')
 
 module.exports = {
   root: function(req, res) {
-    res.sendFile('index.html', { root: path.join(__dirname, '../client') });
+    res.sendFile('index.html', { root: path.join(__dirname, '../dist') });
   }
 };

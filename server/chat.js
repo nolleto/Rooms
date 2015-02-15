@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var socketIo = require('socket.io')
+  var Server = require('socket.io')
     , io;
 
   function connection(socket) {
@@ -19,7 +19,7 @@
 
   module.exports = {
     start: function(http) {
-      io = socketIo(http);
+      io = new Server(http);
       io.on('connection', connection);
     }
   };

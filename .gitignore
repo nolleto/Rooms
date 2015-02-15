@@ -30,8 +30,10 @@ node_modules
 .lock-wscript
 
 # bower components pro client
-/client/bower_components
-/client/dest
+/bower_components
+
+# distribuição do cliente
+/dist
 
 # não sei se eras deixar o data modeling num txt
 /server/data_modeling.txt

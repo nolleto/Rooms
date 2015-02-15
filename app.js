@@ -21,7 +21,7 @@ app.use(grant);
 app.get('/handle_facebook_callback', authentication.facebook);
 
 // Torna público o acesso aos JS e isso aqui fez funcionar o client.
-app.use("/public", express.static(path.join(__dirname, 'client')));
+app.use("/public", express.static(path.join(__dirname, 'dist')));
 
 app.get('/', routes.root);
 

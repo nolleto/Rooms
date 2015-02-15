@@ -4,12 +4,11 @@
   </head>
     <title>Rooms</title>
 
-    <link rel="stylesheet" href="public/dest/css/main.css" />
+    <link rel="stylesheet" href="public/css/main.min.css" />
 
-    <script src="public/dest/lib/angular/angular.min.js"></script>
-    <script src="public/js/rooms.js"></script>
-    <script src="public/js/service/AuthenticationService.js"></script>
-    <script src="public/js/controller/RoomsController.js"></script>
+    <script src="public/lib/angular/angular.min.js"></script>
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="public/js/app.min.js"></script>
   <body>
     <div ng-controller="RoomsController as r">
       <h1>Rooms</h1>
@@ -17,7 +16,6 @@
       <button class="facebook" ng-click="r.login()">Facebook</button>
     </div>
 
-    <script src="../socket.io/socket.io.js"></script>
     <script>
       var socket = io();
       socket.emit('message sent', {
